@@ -1,1 +1,12 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"hejitechllc","appId":"1:232077585270:android:6acf62a1ffe94382802857","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"hejitechllc","configurations":{"android":"1:232077585270:android:6acf62a1ffe94382802857","ios":"1:232077585270:ios:a787bcc3178b31ef802857","macos":"1:232077585270:ios:a787bcc3178b31ef802857","web":"1:232077585270:web:053854a24a480e0a802857","windows":"1:232077585270:web:04d57a20822c74c7802857"}}}}}}
+{
+  "hosting": {
+    "public": "build/web",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
