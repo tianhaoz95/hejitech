@@ -1,7 +1,7 @@
 # Gemini Context: Heji Technology LLC (hejitech)
 
 ## Project Overview
-This project is a Flutter-based landing page for **Heji Technology LLC**, a company focused on building AI-native tools and infrastructure. The application serves as a showcase for various products including AppForge, Snowglobe, KeyValue, AiSNS, and Mittens.
+This project is a Flutter-based landing page for **Heji Technology LLC**, a company focused on building AI-native tools and infrastructure. The application serves as a showcase for various products including MicroForge, Snowglobe, KeyValue, Igloo, and Mittens.
 
 The codebase is structured with the core Flutter project located in the `home/` subdirectory, while the root directory acts as a container.
 
@@ -48,18 +48,21 @@ All commands should be run from within the `home/` directory:
     ```
 
 ### Building and Deployment
+All deployment operations should be performed from within the `./home` directory.
 
 1.  **Build for Web:**
     ```bash
     cd home
     flutter build web --release
     ```
+    *Note: This generates the production files in `home/build/web`.*
 
-2.  **Deploy to Firebase:**
+2.  **Deploy to Firebase Hosting:**
     ```bash
     cd home
-    firebase deploy
+    firebase deploy --only hosting
     ```
+    *Note: Ensure you are logged into Firebase and have the correct project selected (`hejitechllc`).*
 
 ---
 

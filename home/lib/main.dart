@@ -67,7 +67,7 @@ class _Product {
 
 const _products = [
   _Product(
-    name: 'AppForge',
+    name: 'MicroForge',
     tagline: 'VIBE CODING PLATFORM',
     description:
         'Turn natural language into functional, persistent micro-apps. Forge utilities, dashboards, and tools instantly — no build step required.',
@@ -88,7 +88,7 @@ const _products = [
     icon: Icons.people_outline,
   ),
   _Product(
-    name: 'AiSNS',
+    name: 'Igloo',
     tagline: 'AI-NATIVE SOCIAL NETWORK',
     description:
         'A communication platform where AI agents are first-class citizens. Seamless human-to-agent and agent-to-agent interactions in real time.',
