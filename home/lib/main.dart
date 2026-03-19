@@ -46,7 +46,11 @@ class HejiTechApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomePage(),
+        '/terms': (context) => const TermsOfServicePage(),
+      },
     );
   }
 }
@@ -251,22 +255,26 @@ class _ProductMeta extends StatelessWidget {
           child: Icon(product.icon, size: 22, color: Colors.black),
         ),
         const SizedBox(width: 16),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              product.name,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 2),
-            Text(
-              product.tagline,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: const Color(0xFF757575),
-                    fontSize: 10,
-                  ),
-            ),
-          ],
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                product.name,
+                style: Theme.of(context).textTheme.headlineMedium,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 2),
+              Text(
+                product.tagline,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: const Color(0xFF757575),
+                      fontSize: 10,
+                    ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -291,29 +299,62 @@ class _FooterSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isWide = MediaQuery.of(context).size.width > 720;
+    final isWide = MediaQuery.of(context).size.width > 840;
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: isWide ? 80 : 32,
         vertical: 48,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            '© 2026 Heji Technology LLC',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontSize: 13,
-                ),
+      child: isWide
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _copyright(context),
+                _links(context),
+              ],
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _links(context),
+                const SizedBox(height: 24),
+                _copyright(context),
+              ],
+            ),
+    );
+  }
+
+  Widget _copyright(BuildContext context) {
+    return Text(
+      '© 2026 Heji Technology LLC',
+      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            fontSize: 13,
           ),
-          Text(
-            'hejitech.com',
+    );
+  }
+
+  Widget _links(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        InkWell(
+          onTap: () => Navigator.pushNamed(context, '/terms'),
+          child: Text(
+            'TERMS OF SERVICE',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontSize: 11,
+                  decoration: TextDecoration.underline,
                 ),
           ),
-        ],
-      ),
+        ),
+        const SizedBox(width: 24),
+        Text(
+          'hejitech.com',
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontSize: 11,
+              ),
+        ),
+      ],
     );
   }
 }
@@ -324,5 +365,112 @@ class _Divider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Divider(color: Color(0xFFEEEEEE), thickness: 1, height: 1);
+  }
+}
+
+class TermsOfServicePage extends StatelessWidget {
+  const TermsOfServicePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final isWide = MediaQuery.of(context).size.width > 720;
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: isWide ? 80 : 32,
+            vertical: 40,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'TERMS OF SERVICE',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 24),
+              Text(
+                'Legal Framework',
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                      fontSize: isWide ? 48 : 32,
+                    ),
+              ),
+              const SizedBox(height: 48),
+              const _TermsSection(
+                title: '1. Acceptance of Terms',
+                content:
+                    'By accessing and using the services provided by Heji Technology LLC, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.',
+              ),
+              const _TermsSection(
+                title: '2. Description of Service',
+                content:
+                    'Heji Technology LLC provides AI-native tools and infrastructure, including but not limited to MicroForge, Snowglobe, KeyValue, Igloo, and Mittens. These services are provided "as is" and are subject to change without notice.',
+              ),
+              const _TermsSection(
+                title: '3. Privacy Policy',
+                content:
+                    'Your privacy is important to us. Our use of your personal information is governed by our Privacy Policy. By using our services, you consent to the collection and use of your information as described therein.',
+              ),
+              const _TermsSection(
+                title: '4. User Conduct',
+                content:
+                    'Users agree not to use the services for any unlawful purpose or in any way that could damage, disable, overburden, or impair the services or interfere with any other party\'s use and enjoyment of the services.',
+              ),
+              const _TermsSection(
+                title: '5. Intellectual Property',
+                content:
+                    'All content and materials available on our services, including but not limited to text, graphics, website name, code, images, and logos, are the intellectual property of Heji Technology LLC and are protected by applicable copyright and trademark law.',
+              ),
+              const _TermsSection(
+                title: '6. Limitation of Liability',
+                content:
+                    'In no event shall Heji Technology LLC be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses.',
+              ),
+              const SizedBox(height: 80),
+              const _FooterSection(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _TermsSection extends StatelessWidget {
+  final String title;
+  final String content;
+
+  const _TermsSection({required this.title, required this.content});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 40),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  fontSize: 20,
+                ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            content,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ],
+      ),
+    );
   }
 }

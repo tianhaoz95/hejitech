@@ -1,30 +1,45 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:hejitech_home/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('HejiTech landing page smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const HejiTechApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Verify that the company name is present.
+    expect(find.text('HEJI TECHNOLOGY'), findsOneWidget);
+    expect(find.text('Building the\nAI-native future.'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // Verify that some products are listed.
+    expect(find.text('MicroForge'), findsOneWidget);
+    expect(find.text('Snowglobe'), findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Verify footer contains Terms of Service.
+    expect(find.text('TERMS OF SERVICE'), findsOneWidget);
+  });
+
+  testWidgets('Navigate to Terms of Service', (WidgetTester tester) async {
+    await tester.pumpWidget(const HejiTechApp());
+
+    // Find and tap the Terms of Service link.
+    final termsLink = find.text('TERMS OF SERVICE');
+    expect(termsLink, findsOneWidget);
+    
+    // Scroll to footer if necessary (though in 800x600 it might be off screen)
+    await tester.scrollUntilVisible(termsLink, 100);
+    await tester.tap(termsLink);
+    await tester.pumpAndSettle();
+
+    // Verify we are on the Terms of Service page.
+    expect(find.text('Legal Framework'), findsOneWidget);
+    expect(find.text('1. Acceptance of Terms'), findsOneWidget);
+
+    // Go back.
+    await tester.tap(find.byIcon(Icons.arrow_back));
+    await tester.pumpAndSettle();
+
+    // Verify we are back on the home page.
+    expect(find.text('Building the\nAI-native future.'), findsOneWidget);
   });
 }
