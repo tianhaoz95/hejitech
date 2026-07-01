@@ -21,5 +21,19 @@ jobs:
           cd home
           echo "$FIREBASE_SERVICE_ACCOUNT" > service-account.json
           export GOOGLE_APPLICATION_CREDENTIALS=service-account.json
-          npx firebase-tools deploy --only hosting
-          rm service-account.json
+          
+          # Run deployment and capture logs to safely handle the "version already active" edge case
+          DEPLOY_STATUS=0
+          npx firebase-tools deploy --only hosting > deploy.log 2>&1 || DEPLOY_STATUS=$?
+          cat deploy.log
+          
+          if [ "$DEPLOY_STATUS" -ne 0 ]; then
+            if grep -q "is the current active version" deploy.log; then
+              echo "Warning: Version is already active. Ignoring deployment error."
+              exit 0
+            else
+              exit $DEPLOY_STATUS
+            fi
+          fi
+          
+          rm -f service-account.json
