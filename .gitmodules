@@ -1,3 +1,6 @@
 [submodule "projects/icecap"]
 	path = projects/icecap
 	url = https://github.com/tianhaoz95/icecap
+[submodule "projects/layerforge"]
+	path = projects/layerforge
+	url = https://github.com/tianhaoz95/layerforge
