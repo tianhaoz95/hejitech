@@ -2,13 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- CLIENT-SIDE ROUTER ---
   const views = {
     home: document.getElementById('home-view'),
-    terms: document.getElementById('terms-view')
+    terms: document.getElementById('terms-view'),
+    privacy: document.getElementById('privacy-view')
   };
-
-  const navTermsLink = document.getElementById('nav-terms-link');
-  const footerTermsLink = document.getElementById('footer-terms-link');
-  const navLogoBtn = document.getElementById('nav-logo-btn');
-  const termsBackBtn = document.getElementById('terms-back-btn');
 
   function navigateTo(path, scrollTarget = null) {
     window.history.pushState({}, '', path);
@@ -18,15 +14,20 @@ document.addEventListener('DOMContentLoaded', () => {
   function handleRoute(scrollTarget = null) {
     const path = window.location.pathname;
 
+    // Reset views
+    Object.values(views).forEach(view => {
+      if (view) view.classList.add('hidden');
+    });
+
     if (path === '/terms' || path === '/terms/') {
-      // Show terms view, hide home view
-      views.home.classList.add('hidden');
       views.terms.classList.remove('hidden');
       document.title = 'Terms of Service | Heji Technology LLC';
       window.scrollTo(0, 0);
+    } else if (path === '/privacy' || path === '/privacy/') {
+      views.privacy.classList.remove('hidden');
+      document.title = 'Privacy Policy | Heji Technology LLC';
+      window.scrollTo(0, 0);
     } else {
-      // Show home view, hide terms view
-      views.terms.classList.add('hidden');
       views.home.classList.remove('hidden');
       document.title = 'Heji Technology LLC | AI-Native Tools & Infrastructure';
 
@@ -49,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Intercept local link clicks for SPA feel
   document.body.addEventListener('click', (e) => {
-    // Logo navigation
-    if (e.target.closest('#nav-logo-btn') || e.target.closest('#terms-back-btn')) {
+    // Logo / Back button navigation to home
+    if (e.target.closest('#nav-logo-btn') || e.target.closest('#terms-back-btn') || e.target.closest('#privacy-back-btn')) {
       e.preventDefault();
       navigateTo('/');
     }
@@ -61,13 +62,20 @@ document.addEventListener('DOMContentLoaded', () => {
       navigateTo('/terms');
     }
 
+    // Privacy page navigation
+    if (e.target.closest('#footer-privacy-link') || e.target.closest('#nav-privacy-link')) {
+      e.preventDefault();
+      navigateTo('/privacy');
+    }
+
     // Anchors on home page
     const anchorLink = e.target.closest('a[href^="#"]');
     if (anchorLink) {
       e.preventDefault();
       const targetHash = anchorLink.getAttribute('href');
+      const currentPath = window.location.pathname;
       
-      if (window.location.pathname === '/terms') {
+      if (currentPath === '/terms' || currentPath === '/privacy') {
         navigateTo('/', targetHash);
       } else {
         const targetElement = document.querySelector(targetHash);
@@ -106,4 +114,81 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+
+  // --- SCROLL REVEAL (INTERSECTION OBSERVER) ---
+  const revealElements = document.querySelectorAll('.scroll-reveal');
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal-active');
+        // Unobserve once revealed to avoid re-triggering animations on scroll up
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -50px 0px' // triggers slightly before entering viewport
+  });
+
+  revealElements.forEach(el => {
+    revealObserver.observe(el);
+  });
+
+
+  // --- FAQ ACCORDION SINGLE OPEN LIMITER ---
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    const summary = item.querySelector('summary');
+    summary.addEventListener('click', (e) => {
+      // If we are opening this item, close all other open items
+      if (!item.hasAttribute('open')) {
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item && otherItem.hasAttribute('open')) {
+            otherItem.removeAttribute('open');
+          }
+        });
+      }
+    });
+  });
+
+
+  // --- CONTACT FORM SUBMISSION HANDLING ---
+  const inquiryForm = document.getElementById('inquiry-form');
+  const statusMsg = document.getElementById('form-status-msg');
+  const submitBtn = document.getElementById('form-submit-btn');
+
+  if (inquiryForm) {
+    inquiryForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('form-name').value.trim();
+      const email = document.getElementById('form-email').value.trim();
+      const message = document.getElementById('form-message').value.trim();
+
+      if (!name || !email || !message) {
+        statusMsg.className = 'form-message error';
+        statusMsg.textContent = 'Please fill out all required fields.';
+        return;
+      }
+
+      // Visual state: Loading
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      statusMsg.textContent = '';
+
+      // Simulate API call for premium feedback
+      setTimeout(() => {
+        statusMsg.className = 'form-message success';
+        statusMsg.textContent = 'Thank you! Your message has been sent successfully.';
+        
+        // Reset form inputs
+        inquiryForm.reset();
+        
+        // Restore submit button
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+      }, 1200);
+    });
+  }
 });
