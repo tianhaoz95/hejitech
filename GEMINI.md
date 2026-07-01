@@ -19,6 +19,8 @@ The codebase is structured with the core Flutter project located in the `home/` 
   - `pubspec.yaml`: Project dependencies and configuration.
   - `firebase.json`: Firebase Hosting configuration (deploys from `build/web`).
   - `test/`: Contains widget tests.
+- `projects/`: Contains git submodules for products and website management repositories (e.g., [icecap](https://github.com/tianhaoz95/icecap)) to serve as a reference for building the site and executing company-level tasks.
+
 
 ---
 
