@@ -197,11 +197,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (canvas) {
     const ctx = canvas.getContext('2d');
     let particles = [];
-    let mouse = { x: null, y: null, radius: 120 };
+    let mouse = { x: null, y: null, radius: 150 };
 
     function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth || 1024;
+      canvas.height = window.innerHeight || 768;
       initParticles();
     }
 
@@ -209,12 +209,25 @@ document.addEventListener('DOMContentLoaded', () => {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.4;
-        this.vy = (Math.random() - 0.5) * 0.4;
-        this.size = Math.random() * 1.5 + 0.5;
+        this.vx = (Math.random() - 0.5) * 0.45;
+        this.vy = (Math.random() - 0.5) * 0.45;
+        this.size = Math.random() * 2 + 0.8;
       }
 
       update() {
+        // Soft gravitational pull towards mouse cursor
+        if (mouse.x !== null && mouse.y !== null) {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < mouse.radius) {
+            const force = (mouse.radius - dist) / mouse.radius;
+            // Gently nudge particles towards the mouse
+            this.x += (dx / dist) * force * 0.35;
+            this.y += (dy / dist) * force * 0.35;
+          }
+        }
+
         this.x += this.vx;
         this.y += this.vy;
 
@@ -224,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       draw() {
-        ctx.fillStyle = 'rgba(20, 184, 166, 0.3)';
+        ctx.fillStyle = 'rgba(20, 184, 166, 0.55)';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -233,7 +246,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function initParticles() {
       particles = [];
-      const numberOfParticles = Math.min(80, Math.floor((canvas.width * canvas.height) / 20000));
+      const width = canvas.width || 1024;
+      const height = canvas.height || 768;
+      // Safeguard: always spawn at least 45 particles
+      const numberOfParticles = Math.max(45, Math.min(90, Math.floor((width * height) / 18000)));
       for (let i = 0; i < numberOfParticles; i++) {
         particles.push(new Particle());
       }
@@ -246,8 +262,8 @@ document.addEventListener('DOMContentLoaded', () => {
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < 90) {
-            const alpha = (1 - dist / 90) * 0.08;
+          if (dist < 110) {
+            const alpha = (1 - dist / 110) * 0.15;
             ctx.strokeStyle = `rgba(20, 184, 166, ${alpha})`;
             ctx.lineWidth = 0.8;
             ctx.beginPath();
@@ -264,9 +280,9 @@ document.addEventListener('DOMContentLoaded', () => {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < mouse.radius) {
-            const alpha = (1 - dist / mouse.radius) * 0.12;
+            const alpha = (1 - dist / mouse.radius) * 0.28;
             ctx.strokeStyle = `rgba(20, 184, 166, ${alpha})`;
-            ctx.lineWidth = 0.8;
+            ctx.lineWidth = 1.0;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(mouse.x, mouse.y);
