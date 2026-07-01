@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Heji Technology LLC | AI-Native Tools & Infrastructure</title>
+  <meta name="description" content="Heji Technology LLC builds premium, AI-native platforms and developer tools, including Icecap (real estate analyzer) and LayerForge (code-first AI/ML engineering).">
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="/index.css">
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="glow-bg" aria-hidden="true">
+    <div class="glow-sphere glow-1"></div>
+    <div class="glow-sphere glow-2"></div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" id="site-header">
+    <div class="nav-container">
+      <a href="/" class="nav-logo" id="nav-logo-btn">
+        <span class="logo-dot"></span>HEJI TECHNOLOGY
+      </a>
+      <nav class="nav-links">
+        <a href="#products" class="nav-item" id="nav-products-link">Products</a>
+        <a href="#about" class="nav-item" id="nav-about-link">About</a>
+        <a href="/terms" class="nav-item" id="nav-terms-link">Terms</a>
+        <a href="mailto:info@hejitech.com" class="nav-cta" id="nav-contact-btn">Get in Touch</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Homepage View -->
+  <main id="home-view" class="view">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="hero-tag animate-fade-in" id="hero-mini-tag">AI-NATIVE INFRASTRUCTURE</div>
+        <h1 class="hero-title animate-fade-in" id="hero-main-title">
+          Building the <br><span class="gradient-text">AI-native future.</span>
+        </h1>
+        <p class="hero-description animate-fade-in" id="hero-sub-text">
+          We craft tools that put artificial intelligence at the center — from local-first investment analysis systems to code-first machine learning engineering platforms.
+        </p>
+        <div class="hero-actions animate-fade-in">
+          <a href="#products" class="btn btn-primary" id="hero-explore-btn">Explore Projects</a>
+          <a href="#about" class="btn btn-secondary" id="hero-learn-btn">Learn More</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Divider line -->
+    <div class="section-divider" aria-hidden="true"></div>
+
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+      <div class="section-header">
+        <span class="section-subtitle">PROJECTS</span>
+        <h2 class="section-title">Production-grade AI systems.</h2>
+      </div>
+
+      <div class="products-grid">
+        <!-- Product 1: Icecap -->
+        <article class="product-card" id="card-icecap">
+          <div class="card-glow"></div>
+          <div class="product-header">
+            <div class="product-icon-box" aria-hidden="true">
+              <!-- Home/Analytics hybrid SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                <line x1="12" y1="18" x2="12" y2="15"></line>
+              </svg>
+            </div>
+            <div class="product-meta">
+              <h3 class="product-name">Icecap</h3>
+              <span class="product-tagline">REAL ESTATE INVESTMENT ANALYZER</span>
+            </div>
+          </div>
+          <p class="product-description">
+            A comprehensive residential real estate investment analysis platform. Features "The Wedge" Chrome extension for instant on-site property analysis on Redfin, Zillow, and Realtor.com, alongside "The Hub" web dashboard for portfolio tracking and deep financial analysis.
+          </p>
+          <div class="product-tech-stack">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">Chrome Extension</span>
+            <span class="tech-tag">Firebase</span>
+            <span class="tech-tag">Stripe</span>
+          </div>
+          <div class="product-footer">
+            <span class="card-link-text">Read details inside /projects/icecap</span>
+          </div>
+        </article>
+
+        <!-- Product 2: LayerForge -->
+        <article class="product-card" id="card-layerforge">
+          <div class="card-glow"></div>
+          <div class="product-header">
+            <div class="product-icon-box" aria-hidden="true">
+              <!-- Code/Layers hybrid SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="svg-icon">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+                <line x1="12" y1="2" x2="12" y2="22"></line>
+              </svg>
+            </div>
+            <div class="product-meta">
+              <h3 class="product-name">LayerForge</h3>
+              <span class="product-tagline">CODE-FIRST AI/ML ENGINEERING</span>
+            </div>
+          </div>
+          <p class="product-description">
+            An in-browser code-first platform for ML practitioners. Users implement transformer layers, attention mechanisms, GPU kernels, and tokenizers from scratch, running code in a sandboxed executor with feedback from a Socratic AI mentor.
+          </p>
+          <div class="product-tech-stack">
+            <span class="tech-tag">React + Monaco</span>
+            <span class="tech-tag">Express Sandbox</span>
+            <span class="tech-tag">Python & Rust</span>
+            <span class="tech-tag">Gemini API</span>
+          </div>
+          <div class="product-footer">
+            <span class="card-link-text">Read details inside /projects/layerforge</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Divider line -->
+    <div class="section-divider" aria-hidden="true"></div>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+      <div class="about-grid">
+        <div class="about-header-col">
+          <span class="section-subtitle">ABOUT US</span>
+          <h2 class="section-title">Design, speed, autonomy.</h2>
+        </div>
+        <div class="about-content-col">
+          <p class="about-text">
+            Heji Technology LLC develops next-generation, high-performance web and AI tools. We focus on building clean code-first environments, client-side intelligence, and robust software foundations that make advanced AI capabilities accessible, fast, and secure.
+          </p>
+          <p class="about-text">
+            Our codebase features modular architecture, strict coding standards, and is open to reference integration via submodules in our main repository.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Terms of Service View -->
+  <main id="terms-view" class="view hidden">
+    <section class="terms-section">
+      <div class="terms-container">
+        <a href="/" class="back-link" id="terms-back-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="back-arrow"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Back to Home
+        </a>
+        
+        <span class="section-subtitle">LEGAL FRAMEWORK</span>
+        <h1 class="terms-title" id="terms-main-title">Terms of Service</h1>
+        <p class="terms-updated">Last updated: June 30, 2026</p>
+
+        <div class="terms-content">
+          <article class="terms-block">
+            <h2 class="terms-subtitle">1. Acceptance of Terms</h2>
+            <p class="terms-text">
+              By accessing and using the services provided by Heji Technology LLC, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
+            </p>
+          </article>
+
+          <article class="terms-block">
+            <h2 class="terms-subtitle">2. Description of Service</h2>
+            <p class="terms-text">
+              Heji Technology LLC provides AI-native tools and infrastructure, including but not limited to Icecap and LayerForge. These services are provided "as is" and are subject to change without notice.
+            </p>
+          </article>
+
+          <article class="terms-block">
+            <h2 class="terms-subtitle">3. Privacy Policy</h2>
+            <p class="terms-text">
+              Your privacy is important to us. Our use of your personal information is governed by our Privacy Policy. By using our services, you consent to the collection and use of your information as described therein.
+            </p>
+          </article>
+
+          <article class="terms-block">
+            <h2 class="terms-subtitle">4. User Conduct</h2>
+            <p class="terms-text">
+              Users agree not to use the services for any unlawful purpose or in any way that could damage, disable, overburden, or impair the services or interfere with any other party's use and enjoyment of the services.
+            </p>
+          </article>
+
+          <article class="terms-block">
+            <h2 class="terms-subtitle">5. Intellectual Property</h2>
+            <p class="terms-text">
+              All content and materials available on our services, including but not limited to text, graphics, website name, code, images, and logos, are the intellectual property of Heji Technology LLC and are protected by applicable copyright and trademark law.
+            </p>
+          </article>
+
+          <article class="terms-block">
+            <h2 class="terms-subtitle">6. Limitation of Liability</h2>
+            <p class="terms-text">
+              In no event shall Heji Technology LLC be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="footer" id="site-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <p class="copyright-text" id="footer-copyright">© 2026 Heji Technology LLC</p>
+      </div>
+      <div class="footer-right">
+        <a href="/terms" class="footer-link" id="footer-terms-link">Terms of Service</a>
+        <span class="footer-dot"></span>
+        <span class="domain-text">hejitech.com</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Entry Point -->
+  <script src="/main.js"></script>
+</body>
+</html>
