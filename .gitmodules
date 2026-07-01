@@ -1,0 +1,3 @@
+[submodule "projects/icecap"]
+	path = projects/icecap
+	url = https://github.com/tianhaoz95/icecap
